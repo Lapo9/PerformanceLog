@@ -3,6 +3,9 @@
 
 #include <string>
 #include <chrono>
+#include <condition_variable>
+#include <thread>
+#include <mutex>
 
 
 namespace PerformanceLog {
@@ -11,22 +14,31 @@ namespace PerformanceLog {
     class Session {
 
      public:
-      Session() = default;
+      Session(std::string outFileName = "Measurements", std::chrono::milliseconds saveRate = 0ms);
       Session(Session&) = delete;
       Session& operator=(Session&) = delete;
       Session(Session&&) = delete;
       Session& operator=(Session&&) = delete;
-      ~Session();
-
-      Session(std::string outFileName = "Measurements", std::chrono::duration<float> saveRate = 0s);
+      ~Session() noexcept;
 
 
      private:
-     void saveMeasurements(); // writes measurements to the output file
 
-      std::string measurements;  // contains the measurements while the program is running
+
+     void save(); //writes measurements to the output file
+     void write(const std::string& measurement);
+
+
+      std::string measurements;  //contains the measurements while the program is running
+      std::mutex measurementGuard;
       std::string outFileName = "Measurements";
-      std::chrono::duration<float> saveRate {0s}; // how often measurements are saved to file
+      std::chrono::milliseconds saveRate {0ms}; //how often @measurements are saved to file
+      
+      std::thread waitAndSave; //the thread responsible to save measurements at the specified @saveRate
+      std::condition_variable cv; //https://en.cppreference.com/w/cpp/thread/condition_variable
+      bool endSession {false}; //signals if the session is going to be destroyed
+      std::mutex cvMutex;
+
     };
 
 }

@@ -158,8 +158,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MainTEST.cpp" />
     <ClCompile Include="src\Session.cpp" />
-    <ClCompile Include="src\Session.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Session.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
