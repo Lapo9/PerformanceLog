@@ -11,11 +11,10 @@ namespace PerformanceLog {
 	{
 		//if the save rate is <= 0 then no thread is needed (@measurements will be saved at the end of the session)
 		if (this->saveRate > 0ms) {
-			waitAndSave = std::thread{[this] {
-			
+			waitAndSave = std::thread{[this]{
 				while (!endSession) {
 					std::unique_lock<std::mutex> cvLock {cvMutex};
-					cv.wait_for(cvLock, this->saveRate, [this] {return endSession;}); //wait for @saveRate or if the session is going to be destroyed
+					cv.wait_for(cvLock, this->saveRate, [this]{return endSession;}); //wait for @saveRate or if the session is going to be destroyed
 					save();
 				}
 			}};

@@ -36,7 +36,7 @@ namespace PerformanceLog {
       
       std::thread waitAndSave; //the thread responsible to save measurements at the specified @saveRate
       std::condition_variable cv; //https://en.cppreference.com/w/cpp/thread/condition_variable
-      bool endSession {false}; //signals if the session is going to be destroyed
+      bool endSession = false; //signals if the session is going to be destroyed
       std::mutex cvMutex;
 
     };
