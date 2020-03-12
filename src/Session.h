@@ -21,13 +21,12 @@ namespace PerformanceLog {
       Session& operator=(Session&&) = delete;
       ~Session() noexcept;
 
+      void write(std::string& measurement);
+
 
      private:
-
-
-     void save(); //writes measurements to the output file
-     void write(const std::string& measurement);
-
+      //TODO use a in/out thread safe object to save the string to a file
+      void save(); //writes measurements to the output file
 
       std::string measurements;  //contains the measurements while the program is running
       std::mutex measurementGuard;

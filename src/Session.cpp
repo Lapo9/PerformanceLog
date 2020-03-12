@@ -2,6 +2,7 @@
 //C++20 module PerformanceLog;
 
 #include <fstream>
+#include <iostream>
 
 
 namespace PerformanceLog {
@@ -52,10 +53,11 @@ namespace PerformanceLog {
 	}
 
 
-	void Session::write(const std::string& measurement) {
+	void Session::write(std::string& measurement) {
 		if (!measurement.empty()) {
 			std::lock_guard<std::mutex> measurementsLock {measurementGuard};
-			this->measurements.append(measurement);
+			this->measurements += measurement;
+			measurement.clear();
 		}
 	}
 
