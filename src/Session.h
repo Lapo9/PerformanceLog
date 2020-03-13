@@ -21,7 +21,7 @@ namespace PerformanceLog {
       Session& operator=(Session&&) = delete;
       ~Session() noexcept;
 
-      void write(std::string& measurement);
+      void write(std::string measurement);
 
 
      private:

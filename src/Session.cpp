@@ -2,7 +2,6 @@
 //C++20 module PerformanceLog;
 
 #include <fstream>
-#include <iostream>
 
 
 namespace PerformanceLog {
@@ -17,7 +16,7 @@ namespace PerformanceLog {
 					std::unique_lock<std::mutex> cvLock {cvMutex};
 					cv.wait_for(cvLock, this->saveRate, [this]{return endSession;}); //wait for @saveRate or if the session is going to be destroyed
 					save();
-				}
+				} 
 			}};
 		}
 	}
@@ -46,18 +45,17 @@ namespace PerformanceLog {
 	void Session::save() {
 		if (!measurements.empty()) {
 			std::lock_guard<std::mutex> measurementsLock {measurementGuard};
-			std::ofstream outFile {outFileName};
+			std::ofstream outFile {outFileName, std::ios::app | std::ios::out};
 			outFile << measurements;
 			measurements.clear();
 		}
 	}
 
 
-	void Session::write(std::string& measurement) {
+	void Session::write(std::string measurement) {
 		if (!measurement.empty()) {
 			std::lock_guard<std::mutex> measurementsLock {measurementGuard};
 			this->measurements += measurement;
-			measurement.clear();
 		}
 	}
 

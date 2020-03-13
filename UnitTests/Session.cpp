@@ -1,10 +1,10 @@
 #include<fstream>
 
-#include "..\pch.h"
+#include "pch.h"
 #include "CppUnitTest.h"
 #define private public
-#include "..\..\src\Session.h"
-#include "..\..\src\Session.cpp"
+#include "..\src\Session.h"
+#include "..\src\Session.cpp"
 
 #define METHOD_CLASS(methodClass) TEST_METHOD_ATTRIBUTE(L"MethodClass", methodClass)
 
@@ -30,32 +30,40 @@ public:
 		Assert::IsTrue(session.measurements == "This is a simple\nstring\n\t\tHi!\n");
 		}
 
-
-	TEST_METHOD_SIGNATURE(L"write", check_input_exits_empty) {
-		pl::Session session;
-		std::string measurement = "This is a simple\nstring\n\t\tHi!\n";
-		session.write(measurement);
-
-		Assert::IsTrue(measurement.length() == 0);
-		}
-
-
 #pragma endregion
 
 
 #pragma region save
 
-	TEST_METHOD_SIGNATURE(L"save", save) {
+	TEST_METHOD_SIGNATURE(L"save", save_once) {
 			{
-			pl::Session session {"testSave.txt"};
+			pl::Session session {"save_once.txt"};
 			session.measurements = "This is a simple\nstring\n\t\tHi!\n";
 			session.save();
 			}
 
-			std::ifstream previoulsySaved {"testSave.txt"};
+			std::ifstream previoulsySaved {"save_once.txt"};
 			std::string measurements((std::istreambuf_iterator<char>(previoulsySaved)), std::istreambuf_iterator<char>());
 
 			Assert::IsTrue(measurements == "This is a simple\nstring\n\t\tHi!\n");
+			//TODO dovrebbe cancellare il file per il futuro
+		}
+
+
+	TEST_METHOD_SIGNATURE(L"save", save_twice) {
+			{
+			pl::Session session {"save_twice.txt"};
+			session.measurements = "First save\n";
+			session.save();
+			session.measurements = "Second save\n";
+			session.save();
+			}
+
+			std::ifstream previoulsySaved {"save_twice.txt"};
+			std::string measurements((std::istreambuf_iterator<char>(previoulsySaved)), std::istreambuf_iterator<char>());
+
+			Assert::IsTrue(measurements == "First save\nSecond save\n");
+			//TODO dovrebbe cancellare il file per il futuro
 		}
 
 
