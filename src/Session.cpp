@@ -1,13 +1,14 @@
 #include "Session.h"
+#include "formatters/MeasurementOutputFormat.h"
 //C++20 module PerformanceLog;
 
 #include <fstream>
 
 
-namespace PerformanceLog {
+namespace performance_log {
 
-	Session::Session(std::string outFileName, std::chrono::milliseconds saveRate) :
-		outFileName {outFileName}, saveRate {saveRate}
+	Session::Session(std::string outFileName, std::chrono::milliseconds saveRate, std::unique_ptr<formatter::MeasurementOutputFormat> formatter) :
+		measurementFormat {std::move(formatter)}, outFileName {outFileName}, saveRate {saveRate}
 	{
 		//if the save rate is <= 0 then no thread is needed (@measurements will be saved at the end of the session)
 		if (this->saveRate > 0ms) {
@@ -38,9 +39,9 @@ namespace PerformanceLog {
 		}
 
 		save(); //save all (if the thread existed (aka @saveRate > 0) @measurements should be empty)
+		measurementFormat->finalizeFormat(outFileName); //format the file based on the formatter service chosen
 	}
 	
-
 
 	void Session::save() {
 		if (!measurements.empty()) {

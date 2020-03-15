@@ -1,15 +1,16 @@
 #include "Session.h"
 #include "Timer.h"
+#include "formatters/ChromeTracingFormat.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <random>
 
-using namespace PerformanceLog;
+using namespace performance_log;
 
 int main(int argc, char** argv) {
-	Session session {"testSave.txt", 10s};
+	Session session {"testSave.txt", 10s, std::make_unique<formatter::ChromeTracingFormat>()};
 
 	{
 	Timer timer {session};

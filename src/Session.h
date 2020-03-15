@@ -6,15 +6,20 @@
 #include <condition_variable>
 #include <thread>
 #include <mutex>
+#include <fstream>
+
+#include "formatters/MeasurementOutputFormat.h"
+#include "formatters/ChromeTracingFormat.h"
 
 
-namespace PerformanceLog {
+namespace performance_log {
     using namespace std::chrono_literals;
 
     class Session {
 
      public:
-      Session(std::string outFileName = "Measurements", std::chrono::milliseconds saveRate = 0ms);
+     //TODO va fatto l'overload perchè sta prendendo troppi argomenti
+      Session(const std::string outFileName = "Measurements", const std::chrono::milliseconds saveRate = 0ms, std::unique_ptr<formatter::MeasurementOutputFormat> formatter = std::make_unique<formatter::ChromeTracingFormat>());
       Session(Session&) = delete;
       Session& operator=(Session&) = delete;
       Session(Session&&) = delete;
@@ -23,15 +28,16 @@ namespace PerformanceLog {
 
       void write(std::string measurement);
 
+      std::unique_ptr<formatter::MeasurementOutputFormat> measurementFormat; //the format of the measurements in this session
 
      private:
       //TODO use a in/out thread safe object to save the string to a file
       void save(); //writes measurements to the output file
-
+      
       std::string measurements;  //contains the measurements while the program is running
       std::mutex measurementGuard;
-      std::string outFileName = "Measurements";
-      std::chrono::milliseconds saveRate {0ms}; //how often @measurements are saved to file
+      const std::string outFileName = "Measurements";
+      const std::chrono::milliseconds saveRate {0ms}; //how often @measurements are saved to file
       
       std::thread waitAndSave; //the thread responsible to save measurements at the specified @saveRate
       std::condition_variable cv; //https://en.cppreference.com/w/cpp/thread/condition_variable

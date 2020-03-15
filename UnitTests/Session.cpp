@@ -1,4 +1,6 @@
+
 #include<fstream>
+#include <cstdio>
 
 #include "pch.h"
 #include "CppUnitTest.h"
@@ -13,8 +15,16 @@
 														END_TEST_METHOD_ATTRIBUTE()\
 														TEST_METHOD(methodName)
 
+
+#define WRITE_TO_DEFAULT_SESSION_STRING "This is a simple\nstring\n\t\tHi!\n"
+#define SAVE_ONCE_STRING "This is a simple\nstring\n\t\tHi!\n"
+#define SAVE_ONCE_FILE "save_once.txt"
+#define SAVE_TWICE_STRING_1 "First save\n"
+#define SAVE_TWICE_STRING_2 "Second save\n"
+#define SAVE_TWICE_FILE "save_twice.txt"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-namespace pl = PerformanceLog;
+namespace pl = performance_log;
 
 namespace UnitTests {
 	TEST_CLASS(Session) {
@@ -24,11 +34,11 @@ public:
 
 	TEST_METHOD_SIGNATURE(L"write", write_to_default_session) {
 		pl::Session session;
-		std::string measurement = "This is a simple\nstring\n\t\tHi!\n";
+		std::string measurement = WRITE_TO_DEFAULT_SESSION_STRING;
 		session.write(measurement);
 
-		Assert::IsTrue(session.measurements == "This is a simple\nstring\n\t\tHi!\n");
-		}
+		Assert::IsTrue(session.measurements == WRITE_TO_DEFAULT_SESSION_STRING);
+	}
 
 #pragma endregion
 
@@ -36,40 +46,42 @@ public:
 #pragma region save
 
 	TEST_METHOD_SIGNATURE(L"save", save_once) {
-			{
-			pl::Session session {"save_once.txt"};
-			session.measurements = "This is a simple\nstring\n\t\tHi!\n";
-			session.save();
-			}
-
-			std::ifstream previoulsySaved {"save_once.txt"};
-			std::string measurements((std::istreambuf_iterator<char>(previoulsySaved)), std::istreambuf_iterator<char>());
-
-			Assert::IsTrue(measurements == "This is a simple\nstring\n\t\tHi!\n");
-			//TODO dovrebbe cancellare il file per il futuro
+		{
+		pl::Session session {SAVE_ONCE_FILE};
+		session.measurements = SAVE_ONCE_STRING;
+		session.save();
 		}
+
+		std::ifstream previoulsySaved {SAVE_ONCE_FILE};
+		std::string measurements((std::istreambuf_iterator<char>(previoulsySaved)), std::istreambuf_iterator<char>());
+
+		Assert::IsTrue(measurements == SAVE_ONCE_STRING);
+	}
 
 
 	TEST_METHOD_SIGNATURE(L"save", save_twice) {
-			{
-			pl::Session session {"save_twice.txt"};
-			session.measurements = "First save\n";
-			session.save();
-			session.measurements = "Second save\n";
-			session.save();
-			}
-
-			std::ifstream previoulsySaved {"save_twice.txt"};
-			std::string measurements((std::istreambuf_iterator<char>(previoulsySaved)), std::istreambuf_iterator<char>());
-
-			Assert::IsTrue(measurements == "First save\nSecond save\n");
-			//TODO dovrebbe cancellare il file per il futuro
+		{
+		pl::Session session {SAVE_TWICE_FILE};
+		session.measurements = SAVE_TWICE_STRING_1;
+		session.save();
+		session.measurements = SAVE_TWICE_STRING_2;
+		session.save();
 		}
 
-
-
+		std::ifstream previoulsySaved {SAVE_TWICE_FILE};
+		std::string measurements((std::istreambuf_iterator<char>(previoulsySaved)), std::istreambuf_iterator<char>());
+		std::string test = SAVE_TWICE_STRING_1 SAVE_TWICE_STRING_2;
+		Assert::IsTrue(measurements == SAVE_TWICE_STRING_1 SAVE_TWICE_STRING_2);
+	}
 
 #pragma endregion
+
+
+
+	TEST_METHOD_CLEANUP(clean_up) {
+		std::remove(SAVE_ONCE_FILE);
+		std::remove(SAVE_TWICE_FILE);
+	}
 
 		};
 	}

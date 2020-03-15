@@ -8,7 +8,7 @@
 
 #include "Session.h"
 
-namespace PerformanceLog {
+namespace performance_log {
 
     class Timer {
      public:
@@ -25,7 +25,6 @@ namespace PerformanceLog {
       const std::chrono::time_point<std::chrono::high_resolution_clock> start; //the starting time
       const std::function<void(std::chrono::time_point<std::chrono::high_resolution_clock>)> finalAction; //a custom final action
       
-      const std::string name;
 
     };
 }
