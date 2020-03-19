@@ -1,5 +1,4 @@
 #include "Session.h"
-#include "formatters/MeasurementOutputFormat.h"
 //C++20 module PerformanceLog;
 
 #include <fstream>

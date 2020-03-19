@@ -1,3 +1,4 @@
+
 #ifndef PERFORMANCELOG_SESSION
 #define PERFORMANCELOG_SESSION
 
@@ -6,10 +7,6 @@
 #include <condition_variable>
 #include <thread>
 #include <mutex>
-#include <fstream>
-
-#include "formatters/MeasurementOutputFormat.h"
-#include "formatters/ChromeTracingFormat.h"
 
 
 namespace performance_log {

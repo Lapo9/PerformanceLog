@@ -4,17 +4,17 @@
 namespace performance_log {
 
 	//TODO questa versione del costruttore è di debug, bisogna scriverlo bene
-	Timer::Timer(Session& refSession) : 
-		start {std::chrono::high_resolution_clock::now()},
+	Timer::Timer(Session& refSession, std::string name, std::string category) : 
+		data {name, category},
 		finalAction {[this, &refSession](std::chrono::time_point<std::chrono::high_resolution_clock> end) {
-						std::chrono::duration<double, std::milli> elapsedTime = end-start;
-						std::string out = refSession.measurementFormat->formatInput("asd");
-						refSession.write("\n" + std::to_string(elapsedTime.count()));
+						data.duration = end - data.start;
+						std::string out = refSession.measurementFormat->formatInput(data);
+						refSession.write(out);
 					}}
 		{
 			
 		}
-
+		
 		Timer::~Timer() {
 			finalAction(std::chrono::high_resolution_clock::now());
 		}

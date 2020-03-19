@@ -9,7 +9,8 @@
 
 using namespace performance_log;
 
-int main(int argc, char** argv) {
+
+/*int main(int argc, char** argv) {
 	Session session {"testSave.txt", 10s, std::make_unique<formatter::ChromeTracingFormat>()};
 
 	{
@@ -39,4 +40,4 @@ int main(int argc, char** argv) {
 	}
 
 	return 0;
-}
+}*/
