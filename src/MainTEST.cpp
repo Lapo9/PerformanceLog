@@ -1,17 +1,25 @@
-#include "Session.h"
-#include "Timer.h"
-#include "formatters/ChromeTracingFormat.h"
+//#include "Session.h"
+//#include "Timer.h"
+//#include "formatters/ChromeTracingFormat.h"
+//
+//#include <iostream>
+//#include <fstream>
+//#include <string>
+//#include <random>
+//
+//using namespace performance_log;
 
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <random>
+import performanceLog;
 
-using namespace performance_log;
-
-
-/*int main(int argc, char** argv) {
-	Session session {"testSave.txt", 10s, std::make_unique<formatter::ChromeTracingFormat>()};
+int main(int argc, char** argv) {
+	performance_log::Session test;
+	std::cout << "\n\nciao\n\n";
+	int i;
+	std::cin >> i;
+	return 0;
+}
+/*	Session session {"testSave.txt", 10s, std::make_unique<formatter::ChromeTracingFormat>()};
 
 	{
 	Timer timer {session};

@@ -18,28 +18,9 @@
     <ClCompile Include="src\MainTEST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Session.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\formatters\ChromeTracingFormat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Session.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\formatters\ChromeTracingFormat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\formatters\MeasurementOutputFormat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="src\performanceLog.ixx" />
+    <None Include="src\session.ixx" />
   </ItemGroup>
 </Project>
