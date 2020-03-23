@@ -165,8 +165,11 @@
     <ClCompile Include="src\MainTEST.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\formatters\chromeTracingFormat.ixx" />
+    <None Include="src\formatters\measurementOutputFormat.ixx" />
     <None Include="src\performanceLog.ixx" />
     <None Include="src\session.ixx" />
+    <None Include="src\timer.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

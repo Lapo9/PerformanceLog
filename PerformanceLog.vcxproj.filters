@@ -22,5 +22,8 @@
   <ItemGroup>
     <None Include="src\performanceLog.ixx" />
     <None Include="src\session.ixx" />
+    <None Include="src\timer.ixx" />
+    <None Include="src\formatters\measurementOutputFormat.ixx" />
+    <None Include="src\formatters\chromeTracingFormat.ixx" />
   </ItemGroup>
 </Project>

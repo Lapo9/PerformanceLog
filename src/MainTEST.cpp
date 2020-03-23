@@ -10,10 +10,14 @@
 //using namespace performance_log;
 
 #include <iostream>
+#include <chrono>
 import performanceLog;
 
+using namespace std::chrono_literals;
+
 int main(int argc, char** argv) {
-	performance_log::Session test;
+	performance_log::Session test; //non funziona error C1001
+	performance_log::Timer myTimer{8};
 	std::cout << "\n\nciao\n\n";
 	int i;
 	std::cin >> i;
