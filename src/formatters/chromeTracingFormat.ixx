@@ -6,7 +6,7 @@ export module performanceLog:chromeTracingFormat;
 import :timer;
 import :measurementOutputFormat;
 
-namespace performance_log{
+export namespace performance_log{
 namespace formatter{
 
 	class ChromeTracingFormat : public MeasurementOutputFormat {

@@ -6,8 +6,12 @@ module;
 #include <mutex>
 #include <fstream>
 #include <iostream>
+#include <memory>
+
 
 export module performanceLog:session;
+import :measurementOutputFormat;
+//import :chromeTracingFormat;
 
 //UNSUPPORTED
 //import std.core; non funziona importare std.core
@@ -20,9 +24,10 @@ export namespace performance_log {
 
      public:
      //TODO va fatto l'overload perchè sta prendendo troppi argomenti
-      Session(const std::string outFileName/*UNSUPPORTED = "Measurements", const std::chrono::milliseconds saveRate = 10ms, std::unique_ptr<formatter::MeasurementOutputFormat> formatter = std::make_unique<formatter::ChromeTracingFormat>()*/) :
-          /*measurementFormat {std::move(formatter)},*/ outFileName {outFileName}, saveRate {saveRate}
+      Session(const std::string outFileName/*UNSUPPORTED = "Measurements", const std::chrono::milliseconds saveRate = 10ms*/, std::unique_ptr<formatter::MeasurementOutputFormat> formatter/* = std::make_unique<formatter::ChromeTracingFormat>()*/) :
+          /*DEBUGmeasurementFormat {std::move(formatter)},*/ outFileName {outFileName}//DEBUG, saveRate {saveRate}
           {
+          saveRate = 1000ms; //DEBUG
           std::cout << "\n\nSession construction...\n\n"; //DEBUG test da rimuovere
           //if the save rate is <= 0 then no thread is needed (@measurements will be saved at the end of the session)
           if (this->saveRate > 0ms) {
@@ -30,13 +35,13 @@ export namespace performance_log {
                   while (!endSession) {
                       std::unique_lock<std::mutex> cvLock {cvMutex};
                       cv.wait_for(cvLock, this->saveRate, [this] {return endSession; }); //wait for @saveRate or if the session is going to be destroyed
+                      std::cout << "\n\tsession saved"; //DEBUG da rimuovere
                       save();
                   }
               }};
               }
           }
 
-      Session() = default; //DEBUG va tolto, il problema è che nel costruttore sopra non posso mettere il valore di default all'argomento saveRate (https://developercommunity.visualstudio.com/content/problem/959598/fatal-error-c1001-with-chrono-literals-and-modules.html)
       Session(Session&) = delete;
       Session& operator=(Session&) = delete;
       Session(Session&&) = delete;
@@ -68,7 +73,7 @@ export namespace performance_log {
               }
           }
 
-    //DEBUG  std::unique_ptr<formatter::MeasurementOutputFormat> measurementFormat; //the format of the measurements in this session
+      std::unique_ptr<formatter::MeasurementOutputFormat> measurementFormat; //the format of the measurements in this session
 
      private:
       //TODO use a in/out thread safe object to save the string to a file 
@@ -85,7 +90,7 @@ export namespace performance_log {
       std::string measurements;  //contains the measurements while the program is running
       std::mutex measurementGuard;
       const std::string outFileName = "Measurements";
-      const std::chrono::milliseconds saveRate; //UNSUPPORTED = 10ms; //how often @measurements are saved to file
+      /*DEBUGconst*/ std::chrono::milliseconds saveRate; //UNSUPPORTED = 10ms; //how often @measurements are saved to file
     
       std::thread waitAndSave; //the thread responsible to save measurements at the specified @saveRate
       std::condition_variable cv; //https://en.cppreference.com/w/cpp/thread/condition_variable
