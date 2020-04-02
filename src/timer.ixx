@@ -7,6 +7,8 @@ module;
 export module performanceLog:timer;
 
 export namespace performance_log {
+    
+    class Session; //forward declaration
 
     class Timer {
     public:
@@ -19,15 +21,15 @@ export namespace performance_log {
             finalAction(std::chrono::high_resolution_clock::now());
         }
 
-        //Timer(Session& refSession, std::string name, std::string category);
-        //DEBUG costruttore senza riferimenti a Session
-        Timer(int x) :
-            finalAction {[] (std::chrono::time_point<std::chrono::high_resolution_clock>){
-                std::cout << "\nTimer dtor\n";
-            }}
-        {
-            std::cout << "\nTimer ctor\n";
-        }
+        Timer(Session& refSession, std::string name, std::string category);
+ //       //DEBUG costruttore senza riferimenti a Session
+ //       Timer(int x) :
+ //           finalAction {[] (std::chrono::time_point<std::chrono::high_resolution_clock>){
+ //               std::cout << "\nTimer dtor\n";
+ //           }}
+ //       {
+ //           std::cout << "\nTimer ctor\n";
+ //       }
 
         struct MeasurementData {
             const std::string category;
@@ -41,7 +43,6 @@ export namespace performance_log {
         MeasurementData data;
 
         const std::function<void(std::chrono::time_point<std::chrono::high_resolution_clock>)> finalAction; //a custom final action
-
 
         };
     }

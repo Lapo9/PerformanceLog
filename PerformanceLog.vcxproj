@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\MainTEST.cpp" />
+    <ClCompile Include="src\timerImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\formatters\chromeTracingFormat.ixx" />

@@ -18,12 +18,15 @@
     <ClCompile Include="src\MainTEST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\timerImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\performanceLog.ixx" />
-    <None Include="src\timer.ixx" />
-    <None Include="src\formatters\measurementOutputFormat.ixx" />
-    <None Include="src\formatters\chromeTracingFormat.ixx" />
     <None Include="src\session.ixx" />
+    <None Include="src\timer.ixx" />
+    <None Include="src\formatters\chromeTracingFormat.ixx" />
+    <None Include="src\formatters\measurementOutputFormat.ixx" />
   </ItemGroup>
 </Project>
