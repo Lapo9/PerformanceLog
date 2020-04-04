@@ -1,7 +1,10 @@
 {
 	"traceEvents": [
-		{ "name":"#1 timer", "cat": "#1 category", "ph": "X", "ts": 599110892237300, "dur": 1851.058600, "pid": 14, "tid": "12228"},
-		{ "name":"#2 timer", "cat": "#1 category", "ph": "X", "ts": 599113783842400, "dur": 3.083000, "pid": 14, "tid": "12228"},
-		{ "name":"#3 timer", "cat": "#2 category", "ph": "X", "ts": 599115129605800, "dur": 4.257300, "pid": 14, "tid": "12228"}
-	]
+		{ "name":"#1 timer", "cat": "#1 category", "ph": "X", "ts": 636378519578000, "dur": 1838232192.000000, "pid": 14, "tid": "13680"},
+		{ "name":"#2 timer", "cat": "#2 category", "ph": "X", "ts": 636380358023000, "dur": 853944704.000000, "pid": 14, "tid": "13680"},
+		{ "name":"#3 timer", "cat": "#3 category", "ph": "X", "ts": 636384408981500, "dur": 841339008.000000, "pid": 14, "tid": "13680"},
+		{ "name":"#0 timer", "cat": "#0 category", "ph": "X", "ts": 636378519567100, "dur": 6730827776.000000, "pid": 14, "tid": "13680"}
+	],
+
+	"displayTimeUnit": "ms"
 }

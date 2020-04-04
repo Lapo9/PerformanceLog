@@ -1,6 +1,7 @@
 
 #include "Session.h"
 #include <fstream>
+#include <iostream>
 #include "formatters/MeasurementOutputFormat.h"
 #include "formatters/ChromeTracingFormat.h"
 
@@ -16,6 +17,7 @@ namespace performance_log {
 					std::unique_lock<std::mutex> cvLock {cvMutex};
 					cv.wait_for(cvLock, this->saveRate, [this]{return endSession;}); //wait for @saveRate or if the session is going to be destroyed
 					save();
+					std::cout << "\nSaved\n"; //DEBUG
 				} 
 			}};
 		}
@@ -45,7 +47,7 @@ namespace performance_log {
 	void Session::save() {
 		if (!measurements.empty()) {
 			std::lock_guard<std::mutex> measurementsLock {measurementGuard};
-			std::ofstream outFile {outFileName, std::ios::out};
+			std::ofstream outFile {outFileName, std::ios::app | std::ios::out};
 			outFile << measurements;
 			measurements.clear();
 		}

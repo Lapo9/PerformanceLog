@@ -1,4 +1,5 @@
 #include <sstream>
+#include <chrono>
 #include "ChromeTracingFormat.h"
 #include "..\Timer.h"
 #include "MeasurementOutputFormat.h"
@@ -14,7 +15,7 @@ namespace formatter {
 		return "\n\t\t{ \"name\":\""	+ md.name + 
 				"\", \"cat\": \""		+ md.category + 
 				"\", \"ph\": \""		+ "X"	+ //for now the category is always a complete event
-				"\", \"ts\": "			+ std::to_string(md.start.time_since_epoch().count()) +
+				"\", \"ts\": "			+ std::to_string(std::chrono::duration_cast<std::chrono::nanoseconds>(md.start.time_since_epoch()).count()) +
 				", \"dur\": "			+ std::to_string(md.duration.count()) +
 				", \"pid\": "			+ std::to_string(md.pid) +
 				", \"tid\": \""			+ ssTid.str() + "\"},";
@@ -29,7 +30,7 @@ namespace formatter {
 
 		s.insert(0, "{\n\t\"traceEvents\": ["); //insert at the beginning of the string
 		s.pop_back(); //removes the last ',' in the string
-		s.append("\n\t]\n}"); //append to the string
+		s.append("\n\t],\n\n\t\"displayTimeUnit\": \"ms\"\n}"); //append to the string
 
 		//save on the same file
 		std::ofstream outFile {fn, std::ios::out};
