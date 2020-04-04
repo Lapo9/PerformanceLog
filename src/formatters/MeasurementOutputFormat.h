@@ -1,4 +1,4 @@
-export module abc;
+
 #ifndef PERFORMANCELOG_TIMEROUTPUTFORMAT
 #define PERFORMANCELOG_TIMEROUTPUTFORMAT
 
@@ -22,7 +22,6 @@ namespace formatter{
 		 virtual ~MeasurementOutputFormat() = default;
 
 		 virtual std::string formatInput(Timer::MeasurementData measurementData) const = 0; //format the single measure
-		 virtual void finalizeFormat(std::string& allMeasurements) const = 0; //format the string with all the measurements
 		 virtual void finalizeFormat(std::string filename) const = 0; //format the file with all the measurements
 
 	};

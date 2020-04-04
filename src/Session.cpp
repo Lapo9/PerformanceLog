@@ -1,8 +1,8 @@
+
 #include "Session.h"
-//C++20 module PerformanceLog;
-
 #include <fstream>
-
+#include "formatters/MeasurementOutputFormat.h"
+#include "formatters/ChromeTracingFormat.h"
 
 namespace performance_log {
 
@@ -45,7 +45,7 @@ namespace performance_log {
 	void Session::save() {
 		if (!measurements.empty()) {
 			std::lock_guard<std::mutex> measurementsLock {measurementGuard};
-			std::ofstream outFile {outFileName, std::ios::app | std::ios::out};
+			std::ofstream outFile {outFileName, std::ios::out};
 			outFile << measurements;
 			measurements.clear();
 		}

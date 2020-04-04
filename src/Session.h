@@ -8,6 +8,9 @@
 #include <thread>
 #include <mutex>
 
+#include "formatters/MeasurementOutputFormat.h"
+#include "formatters/ChromeTracingFormat.h"
+
 
 namespace performance_log {
     using namespace std::chrono_literals;
@@ -15,7 +18,7 @@ namespace performance_log {
     class Session {
 
      public:
-     //TODO va fatto l'overload perchè sta prendendo troppi argomenti
+     //TODO needs overload (it is taking too many args)
       Session(const std::string outFileName = "Measurements", const std::chrono::milliseconds saveRate = 0ms, std::unique_ptr<formatter::MeasurementOutputFormat> formatter = std::make_unique<formatter::ChromeTracingFormat>());
       Session(Session&) = delete;
       Session& operator=(Session&) = delete;

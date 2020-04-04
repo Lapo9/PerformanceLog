@@ -10,11 +10,11 @@
 using namespace performance_log;
 
 
-/*int main(int argc, char** argv) {
+int main(int argc, char** argv) {
 	Session session {"testSave.txt", 10s, std::make_unique<formatter::ChromeTracingFormat>()};
 
 	{
-	Timer timer {session};
+	Timer timer1 {session, "#1 timer", "#1 category"};
 	for (int i = 0; i < 10000; i++) {
 			std::cout << std::rand();
 		}
@@ -24,7 +24,7 @@ using namespace performance_log;
 	std::cin >> a;
 	
 	{
-	Timer timer1 {session};
+	Timer timer2 {session, "#2 timer", "#1 category"};
 	for (int i = 0; i < 10; i++) {
 			std::cout << std::rand();
 		}
@@ -33,11 +33,11 @@ using namespace performance_log;
 	std::cin >> a;
 
 	{
-	Timer timer2 {session};
+	Timer timer3 {session, "#3 timer", "#2 category"};
 	for (int i = 0; i < 10; i++) {
 		std::cout << std::rand();
 		}
 	}
 
 	return 0;
-}*/
+}
