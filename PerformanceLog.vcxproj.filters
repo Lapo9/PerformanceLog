@@ -41,6 +41,12 @@
     <ClInclude Include="src\formatters\MeasurementOutputFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ScopedTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SessionTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

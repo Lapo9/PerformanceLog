@@ -11,7 +11,7 @@
 namespace performance_log {
 
     class Session;
-
+    
     class Timer {
      public:
       Timer() = delete;

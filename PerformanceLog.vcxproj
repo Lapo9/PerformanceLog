@@ -164,9 +164,11 @@
     <ClCompile Include="src\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ScopedTimer.h" />
     <ClInclude Include="src\formatters\ChromeTracingFormat.h" />
     <ClInclude Include="src\formatters\MeasurementOutputFormat.h" />
     <ClInclude Include="src\Session.h" />
+    <ClInclude Include="src\SessionTimer.h" />
     <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <ItemGroup>

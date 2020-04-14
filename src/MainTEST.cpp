@@ -9,6 +9,8 @@
 
 using namespace performance_log;
 
+Session performance_log::GlobalSession;
+
 
 int main(int argc, char** argv) {
 	Session session {"testSave.txt", 1s, std::make_unique<formatter::ChromeTracingFormat>()};
@@ -38,6 +40,14 @@ int main(int argc, char** argv) {
 		std::cout << std::rand();
 		}
 	}
+
+
+
+	ScopedTimer::time_point time;
+	measure([]()
+	{
+			std::this_thread::sleep_for(std::chrono::seconds(3));
+	}, time);
 
 	return 0;
 }

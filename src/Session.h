@@ -15,6 +15,17 @@
 namespace performance_log {
     using namespace std::chrono_literals;
 
+    ////////////////////////////////////////////////////////////////////////
+    /*
+    *   Session s;
+
+        {
+            Timer t{s};
+            // measured time
+        }
+    *
+    */
+    ////////////////////////////////////////////////////////////////////////
     class Session {
 
      public:
@@ -27,6 +38,7 @@ namespace performance_log {
       ~Session() noexcept;
 
       void write(std::string measurement);
+      void write(const std::chrono::time_point<std::chrono::high_resolution_clock> &duration, const std::string &name);
 
       std::unique_ptr<formatter::MeasurementOutputFormat> measurementFormat; //the format of the measurements in this session
 
@@ -45,6 +57,12 @@ namespace performance_log {
       std::mutex cvMutex;
 
     };
+
+    static Session GlobalSession;
+    Session& GetGlobalSession()
+    {
+        return GlobalSession;
+    }
 
 }
 
