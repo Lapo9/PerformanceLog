@@ -6,25 +6,30 @@
 #include <chrono>
 #include <fstream>
 
-#include "..\Timer.h"
+#include "..\MeasurementData.h"
 
 namespace performance_log{
 namespace formatter{
 
-	class MeasurementOutputFormat {
-	
-		public:
-		 MeasurementOutputFormat() = default;
-		 MeasurementOutputFormat(MeasurementOutputFormat&) = delete;
-		 MeasurementOutputFormat& operator=(MeasurementOutputFormat&) = delete;
-		 MeasurementOutputFormat(MeasurementOutputFormat&&) = delete;
-		 MeasurementOutputFormat& operator=(MeasurementOutputFormat&&) = delete;
-		 virtual ~MeasurementOutputFormat() = default;
+/**
+ * @class MeasurementFormatter 
+ * @brief A pure abstract class that defines the interface of a formatter.
+**/
+class MeasurementFormatter {
 
-		 virtual std::string formatInput(Timer::MeasurementData measurementData) const = 0; //format the single measure
-		 virtual void finalizeFormat(std::string filename) const = 0; //format the file with all the measurements
+	public:
+	 MeasurementFormatter() = default;
+	 MeasurementFormatter(MeasurementFormatter&) = delete;
+	 MeasurementFormatter& operator=(MeasurementFormatter&) = delete;
+	 MeasurementFormatter(MeasurementFormatter&&) = delete;
+	 MeasurementFormatter& operator=(MeasurementFormatter&&) = delete;
+	 virtual ~MeasurementFormatter() = default;
 
-	};
+	 virtual std::string formatInput(const performance_log::MeasurementData& measurementData) const = 0; //format the single measure
+	 virtual void finalizeFormat(std::string filename) const = 0; //format the file with all the measurements
+
+};
+
 }
 }
 
